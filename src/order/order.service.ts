@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import * as bcrypt from "bcrypt"
 import { Order, OrderDocument } from './schemas/order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
@@ -14,12 +13,7 @@ export class OrderService {
   ) { }
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const { user_name, password } = createOrderDto
-    const hashed_password = await bcrypt.hash(password, 7);
-    const createdOrder = new this.orderModel({
-      user_name,
-      hashed_password,
-    })
+    const createdOrder = new this.orderModel(createOrderDto)
     return createdOrder.save()
   }
 

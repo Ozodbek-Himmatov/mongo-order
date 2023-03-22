@@ -1,4 +1,4 @@
-export class CreateCurrency_TypeDto {
+export class CreateStatusDto {
     name: string;
     description: string;
 }
