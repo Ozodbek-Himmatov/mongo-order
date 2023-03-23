@@ -13,8 +13,16 @@ export class OrderService {
   ) { }
 
   async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    const createdOrder = new this.orderModel(createOrderDto)
-    return createdOrder.save()
+    const createdOrder = await new this.orderModel(createOrderDto).save()
+
+    const updatedOrder = await this.orderModel.findByIdAndUpdate(
+      String(createdOrder._id),
+      { order_unique_id: String(createdOrder._id) },
+      { new: true }
+    )
+      .populate('currency_type_id');
+
+    return updatedOrder
   }
 
   async findAll(): Promise<Order[]> {
