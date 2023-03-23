@@ -14,16 +14,16 @@ export class Order {
     @Prop({ required: true })
     phone_number: string;
 
-    @Prop({ required: true })
+    @Prop()
     email: string
 
     @Prop({ required: true })
     product_link: string;
 
-    @Prop()
+    @Prop({ required: true })
     summa: number;
 
-    @Prop({ type: mongoose.Schema.Types.ObjectId, res: 'CurrencyType' })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Currency_Type' })
     currency_type_id: string;
 
     @Prop()

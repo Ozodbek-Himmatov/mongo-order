@@ -5,7 +5,7 @@ export type Currency_TypeDocument = HydratedDocument<Currency_Type>;
 
 @Schema()
 export class Currency_Type {
-    @Prop()
+    @Prop({ required: true })
     name: string;
 
     @Prop()

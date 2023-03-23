@@ -1,20 +1,20 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 
 export type OperationDocument = HydratedDocument<Operation>;
 
 @Schema()
 export class Operation {
-    @Prop()
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Order' })
     order_id: string;
 
-    @Prop({ required: true })
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Status' })
     status_id: number;
 
     @Prop()
     operation_date: Date;
 
-    @Prop()
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Admin' })
     admin_id: number;
 
     @Prop()
