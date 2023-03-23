@@ -1,15 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { CreateAdminDto } from 'src/admin/dto/create-admin.dto';
+import { UpdateAdminDto } from 'src/admin/dto/update-admin.dto';
 import { OperationService } from './operation.service';
-import { CreateOperationDto } from './dto/create-operation.dto';
-import { UpdateOperationDto } from './dto/update-operation.dto';
 
 @Controller('operation')
 export class OperationController {
-  constructor(private readonly operationService: OperationService) {}
+  constructor(private readonly operationService: OperationService) { }
 
-  @Post()
-  create(@Body() createOperationDto: CreateOperationDto) {
-    return this.operationService.create(createOperationDto);
+  @Post('create')
+  create(@Body() createAdminDto: CreateAdminDto) {
+    return this.operationService.create(createAdminDto);
   }
 
   @Get()
@@ -18,17 +18,17 @@ export class OperationController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.operationService.findOne(+id);
+  findOneById(@Param('id') id: string) {
+    return this.operationService.findOneById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOperationDto: UpdateOperationDto) {
-    return this.operationService.update(+id, updateOperationDto);
+  @Patch('update/:id')
+  update(@Param('id') id: string, @Body() updateAdminDto: UpdateAdminDto) {
+    return this.operationService.update(id, updateAdminDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.operationService.remove(+id);
+    return this.operationService.remove(id);
   }
 }

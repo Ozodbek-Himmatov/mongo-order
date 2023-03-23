@@ -18,11 +18,6 @@ export class Currency_TypeController {
   }
 
   @Get(':id')
-  findOneByUsername(@Param('id') id: string) {
-    return this.currency_typeService.findOneByUsername(id);
-  }
-
-  @Get(':id')
   findOneById(@Param('id') id: string) {
     return this.currency_typeService.findOneById(id);
   }

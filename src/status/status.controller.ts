@@ -18,11 +18,6 @@ export class StatusController {
   }
 
   @Get(':id')
-  findOneByUsername(@Param('id') id: string) {
-    return this.statusService.findOneByUsername(id);
-  }
-
-  @Get(':id')
   findOneById(@Param('id') id: string) {
     return this.statusService.findOneById(id);
   }

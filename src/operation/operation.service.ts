@@ -1,26 +1,40 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
+import * as bcrypt from "bcrypt"
+import { Operation, OperationDocument } from './schemas/operation.schema';
 import { CreateOperationDto } from './dto/create-operation.dto';
 import { UpdateOperationDto } from './dto/update-operation.dto';
 
 @Injectable()
 export class OperationService {
-  create(createOperationDto: CreateOperationDto) {
-    return 'This action adds a new operation';
+  constructor(
+    @InjectModel(Operation.name) private operationModel: Model<OperationDocument>,
+  ) { }
+
+  async create(createOperationDto: CreateOperationDto): Promise<Operation> {
+    const createdOperation = new this.operationModel(createOperationDto)
+    return createdOperation.save()
   }
 
-  findAll() {
-    return `This action returns all operation`;
+  async findAll(): Promise<Operation[]> {
+    return this.operationModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} operation`;
+  async findOneByUsername(user_name: string) {
+    return this.operationModel.findOne({ user_name }).exec()
   }
 
-  update(id: number, updateOperationDto: UpdateOperationDto) {
-    return `This action updates a #${id} operation`;
+  async findOneById(id: string): Promise<Operation> {
+    return this.operationModel.findById(id).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} operation`;
+  async update(id: string, updateOperationDto: UpdateOperationDto): Promise<Operation> {
+    return this.operationModel.findByIdAndUpdate(id, updateOperationDto, { new: true }).exec();
+  }
+
+  async remove(id: string): Promise<Operation> {
+    return this.operationModel.findByIdAndDelete(id).exec();
   }
 }
