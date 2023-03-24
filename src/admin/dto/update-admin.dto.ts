@@ -3,4 +3,5 @@ export class UpdateAdminDto {
     phone_number?: string;
     email?: string;
     tg_link?: string;
+    hashed_token?: string
 }
