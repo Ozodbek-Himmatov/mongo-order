@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpCode, Res, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login-user.dto';
 import { Response } from 'express';
-import { CookieGetter } from '../decorators/cookieGetter.decorator';
+import { CookieGetter } from 'src/decorators/cookieGetter.decorator';
 
 
 @Controller('auth')
